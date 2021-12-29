@@ -3,12 +3,13 @@ package me.omegabiebel.zanzibar_poc;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import me.omegabiebel.zanzibar_poc.interfaces.ZCalculable;
 
 public class ZObject implements ZCalculable {
     public String type;
-    public HashMap<String, List<ZRelation>> relations = new HashMap<>();
-    public HashMap<String, List<ZCalculable>> permissions = new HashMap<>();
+    public Map<String, List<ZRelation>> relations = new HashMap<>();
+    public Map<String, List<ZPermission>> permissions = new HashMap<>();
 
     @Override
     public List<ZObject> calculateObjects() {
@@ -33,7 +34,7 @@ public class ZObject implements ZCalculable {
 
 
     public void addPermission(String name, ZPermission relation) {
-        List<ZCalculable> match;
+        List<ZPermission> match;
         if ((match = permissions.get(name)) == null) {
             match = new ArrayList<>(1);
         }
@@ -42,8 +43,8 @@ public class ZObject implements ZCalculable {
     public void removePermission(String name) {
         permissions.remove(name);
     }
-    public void removePermission(String name, ZRelation relation) {
-        List<ZCalculable> match = permissions.get(name);
+    public void removePermission(String name, ZPermission relation) {
+        List<ZPermission> match = permissions.get(name);
         match.remove(relation);
     }
 }
